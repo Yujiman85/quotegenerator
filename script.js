@@ -18,10 +18,23 @@ async function getQuote() {
         } else {
             authorText.innerText = data.quoteAuthor;
         }
+        // Reduce font size for long quotes
+        if (data.quoteText.length > 120) {
+            quoteText.classList.add('long-quote');
+        } else {
+            quoteText.classList.remove('long-quote'); //In case next quote is less than 120 characters
+        }
         quoteText.innerText = data.quoteText;
     } catch (error) {
         getQuote();
     }
+}
+
+function tweetQuote() {
+    const quote = quoteText.innerText;
+    const author = authorText.innerText;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`;
+    window.open(twitterUrl, '_blank');
 }
 
 // On Load
